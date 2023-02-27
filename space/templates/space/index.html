@@ -1,0 +1,155 @@
+{% extends "space/layout.html" %}
+{% load static %}
+{% block body %}
+
+{% if message %}
+<div>{{ message }}</div>
+{% endif %}
+
+{% if user.is_authenticated %}
+<div class="d-flex ">
+  <div class="d-flex flex-wrap flex-fill">
+    <div class="p-2 flex-fill">
+      <div class="p-2">
+        <button type="button" id="goals" class="collapsible container p-2">
+          <h3>Goals</h3>
+          <hr class="hr" />
+        </button>
+      </div>
+      <div class="p-2">
+        <button type="button" id="income" class="collapsible container p-2">
+          <h3>Income</h3>
+          <hr class="hr" />
+        </button>
+      </div>
+    </div>
+    <div class="p-2 flex-fill">
+      <div class="p-2">
+        <button type="button" id="debts" class="collapsible container p-2">
+          <h3>Debts</h3>
+          <hr class="hr" />
+        </button>
+      </div>
+      <div class="p-2">
+        <button type="button" id="expense" class="collapsible container p-2">
+          <h3>Expenses</h3>
+          <hr class="hr" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form class="goalss" action="{% url 'add_goal' %}" method="post" style="display: none;">
+  {% csrf_token %}
+  <div class="form-group">
+    <input autofocus class="form-control" required type="text" name="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" type="text" name="details" placeholder="Details">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" required type="number" name="budget" placeholder="Amount">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" type="date" name="date" placeholder="End Date">
+  </div>
+  <input class="btn btn-primary" type="submit" value="Add">
+</form>
+
+<form class="incomes" action="{% url 'add_income' %}" method="post" style="display: none;">
+  {% csrf_token %}
+  <div class="form-group">
+    <input autofocus class="form-control" type="text" required name="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" type="number" required name="budget" placeholder="Amount">
+  </div>
+  <div class="form-group">
+    <select class="form-select" name="frequency" required aria-label="Default select example">
+      <option value="monthly" selected>Monthly</option>
+      <option value="once">Once</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" required type="date" name="date" placeholder="Due-Date">
+  </div>
+  <input class="btn btn-primary" type="submit" value="Add">
+</form>
+<form class="debts" action="{% url 'add_debt' %}" method="post" style="display: none;">
+  {% csrf_token %}
+  <div class="form-group">
+    <input autofocus class="form-control" required type="text" name="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" required type="number" name="budget" placeholder="Amount">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" required type="date" name="date" placeholder="Due-Date">
+  </div>
+  <input class="btn btn-primary" type="submit" value="Add">`
+</form>
+<form class="expensess" action="{% url 'add_expense' %}" method="post" style="display: none;">
+  {% csrf_token %}
+  <div class="form-group">
+    <input autofocus class="form-control" required type="text" name="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" required type="number" name="price" placeholder="Amount">
+  </div>
+  <div class="form-group">
+    <input autofocus class="form-control" type="text" name="category" placeholder="Category">
+  </div>
+  <input class="btn btn-primary" type="submit" value="Add">
+</form>
+
+<br>
+<br>
+
+<div class="d-flex p-2 flex-wrap">
+  <div class="d-flex flex-wrap flex-fill">
+    <div class="content flex-fill">
+
+    </div>
+    <div class="p-2 flex-fill">
+      <h2>Spending</h2>
+      <h5>Total Spent: {{ total }}</h5>
+      <div class="spend">
+        {% for row in expenses %}
+        <div class="card" style="margin: 7px;">
+          <div class="card-body" style="padding: 12px;">
+            <h5 class="card-title">Category: {{ row.0 }}</h5>
+            <p class="card-text"><strong>Spent: </strong> {{ row.1 }}</p>
+            <div class="progress">
+              <div class="progress-bar bg-success line" role="progressbar" aria-label="Success example"
+                style="color:black;width: {{ row.2 }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              </div><strong>{{row.2}}</strong>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+
+  {% else %}
+  <div style="padding: 6%;">
+    <p class="h1" style="text-align: left">
+      <strong>
+        <h1>Managing Your Life</h1>
+      </strong>
+    </p>
+    <p style="text-align:justify ;">
+      <strong>
+        <h4>Worry Less, Do More</h4>
+      </strong>
+    </p>
+    <a class="btn btn-secondary bttn" href="{% url 'register' %}">Register</a>
+    <strong>Or</strong>
+    <a class="btn btn-secondary bttn" href="{% url 'login' %}">Log In</a>
+  </div>
+
+  {% endif %}
+  {% endblock %}

@@ -1,0 +1,48 @@
+{% extends "space/layout.html" %}
+{% load static %}
+{% block body %}
+
+<form class="notess" action="{% url 'notes' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <input autofocus class="form-control" required type="text" name="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" type="text" required name="details" placeholder="Details"></textarea>
+  </div>
+  <input class="btn btn-primary" type="submit" value="Add a note">
+</form>
+<div>
+
+</div>
+<div class="container">
+  <div class="row">
+    {% for note in notes %}
+    <div class="col-10">
+      <div class="card w-90 note{{note.id}}" style="margin: 4px;">
+        <div id="note_form{{note.id}}" style="display: none;">
+          <div class="form-group">
+            <input autofocus class="form-control" id="note_newtitle{{note.id}}" required type="text" name="title"
+              placeholder="Title">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" type="text" id="note_newdetails{{note.id}}" required name="details"
+              placeholder="Details"></textarea>
+          </div>
+          <input class="btn btn-primary {{note.id}}" id="note_save" type="submit" value="Save">
+        </div>
+        <div class="card-body" id="note_card{{note.id}}">
+          <h5 class="card-title" id="note_title{{note.id}}">{{ note.title }}</h5>
+          <p class="card-text" id="note_detail{{note.id}}"> {{ note.details }}</p>
+          <button class="btn btn-primary {{note.id}}" id="note_edit">Edit</button>
+          <button class="btn btn-danger {{note.id}}" id="del">Delete</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "space/layout.html" %}
+{% load static %}
+{% block body %}
+
+<h2>Adjust balance</h2>
+
+<form action="{% url 'balance' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <input autofocus class="form-control" type="text" name="balance" placeholder="add to balance">
+  </div>
+  <h5>OR</h5>
+  <div class="form-group">
+    <input autofocus class="form-control" type="text" name="new_balance" placeholder="Adjust initial balance">
+  </div>
+  <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+
+
+{% endblock %}

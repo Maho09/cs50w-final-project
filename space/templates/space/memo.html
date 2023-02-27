@@ -1,0 +1,47 @@
+{% extends "space/layout.html" %}
+{% load static %}
+{% block body %}
+
+<form class="notess" action="{% url 'memories' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form}}
+  <br>
+  <input class="btn btn-primary" type="submit" value="Add a note">
+</form>
+
+
+{% for memo in memos %}
+<div class=" container d-flex p-2">
+    <div class="p-2">
+      <div class="card w-70" id="memo{{memo.id}}" style="display: flexbox; align-content: flex-start;">
+        <div class="card-body">
+          <div id="memo_form{{memo.id}}" style="display: none;">
+            <div class="form-group">
+              Title: <input autofocus class="form-control" type="text" id="memo_newtitle{{memo.id}}"
+                value="{{memo.title}}">
+            </div>
+            <div class="form-group">
+              Details: <textarea class="form-control" id="memo_newdetails{{memo.id}}" type="text"
+                >{{memo.details}}</textarea>
+            </div>
+            <input class="btn btn-primary {{memo.id}}" type="submit" id="memo_save" value="Save">
+          </div>
+          <div id="memo_card{{memo.id}}">
+            <h3 id="memo_title{{memo.id}}" class="card-title">{{ memo.title }}</h3>
+            <img src="{{memo.file}}" style="width: 90%;">
+            <p id="memo_details{{memo.id}}" class="card-text"> {{ memo.details }}</p>
+          </div>
+          <button class="btn btn-primary {{memo.id}}" id="memo_edit">Edit</button>
+          <button class="btn btn-danger {{memo.id}}" id="memo_del">Delete</button>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+<br>
+{% endfor %}
+</div>
+</div>
+
+
+{% endblock %}

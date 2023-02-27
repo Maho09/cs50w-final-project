@@ -1,0 +1,76 @@
+.center {
+  text-align: center;
+}
+
+.nav-link {
+  color: aliceblue;
+}
+body {
+  background-image: url(/static/work.jpg);
+  background-repeat: no-repeat;
+}
+
+.bttn {
+  font-size: large;
+  background-color: rgb(131, 131, 131);
+  border: none;
+  color: aliceblue;
+}
+
+.line {
+  display: inline;
+}
+
+.form-control {
+  width: 70%;
+}
+
+.container {
+  margin-top: 1%;
+  max-width: 700px;
+}
+
+.none {
+  list-style: none;
+  display: inline-block;
+}
+
+.white {
+  text-align: center;
+  color: aliceblue;
+}
+
+.collapsible {
+  cursor: pointer;
+  border: none;
+  margin: 4px;
+  outline: none;
+  text-align: left;
+  background: none;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  display: none;
+  margin: 2%;
+}
+
+.fa-sharp {
+  color: rgb(11, 197, 11);
+}
+
+.notess {
+  margin: 2%;
+}
+
+.spend {
+  max-width: 450px;
+}
+
+.nav {
+  width: 100%;
+}
+
+.event{
+  max-width: 500px;
+}

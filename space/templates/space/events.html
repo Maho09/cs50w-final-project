@@ -1,0 +1,58 @@
+{% extends "space/layout.html" %}
+{% load static %}
+{% block body %}
+
+<form class="notess" action="{% url 'events' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <input autofocus class="form-control" required type="text" name="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" type="text" required name="details" placeholder="Details"></textarea>
+  </div>
+  <div class="form-group">
+    Time: <input class="form-control" required type="datetime-local" name="time">
+  </div>
+  <input class="btn btn-primary" type="submit" value="Add an event">
+</form>
+
+
+  {% for event in events %}
+  <div class="d-flex event">
+  <div class="flex-row flex-fill">
+    <div class="p-2 ">
+      <div class="card w-80" id="event{{event.id}}" style="display: flexbox; align-content: flex-start;">
+        <div class="card-body">
+          <div id="event_form{{event.id}}" style="display: none;">
+            <div class="form-group">
+              Title: <input autofocus class="form-control" type="text" id="event_newtitle{{event.id}}"
+                value="{{event.title}}">
+            </div>
+            <div class="form-group">
+              Details: <input class="form-control" id="event_newdetails{{event.id}}" type="text" value="{{event.info}}">
+            </div>
+            <div class="form-group">
+              Time: <input class="form-control" id="event_newdate{{event.id}}" type="datetime-local">
+            </div>
+            <input class="btn btn-primary {{event.id}}" type="submit" id="event_save" value="Save">
+          </div>
+          <div id="event_card{{event.id}}">
+            <h3 id="event_title{{event.id}}" class="card-title">{{ event.title }}</h3>
+            <p id="event_date{{event.id}}">{{ event.date }}</p>
+            <p id="event_details{{event.id}}" class="card-text"> {{ event.info }}</p>
+          </div>
+          <button class="btn btn-primary {{event.id}}" id="event_edit">Edit</button>
+          <button class="btn btn-danger {{event.id}}" id="event_del">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<br>
+{% endfor %}
+</div>
+
+
+{% endblock %}
